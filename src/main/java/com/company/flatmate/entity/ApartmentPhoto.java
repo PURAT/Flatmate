@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.UUID;
 
 @Entity
@@ -25,7 +27,21 @@ public class ApartmentPhoto {
     @Column(name = "apartment_id")
     private UUID apartmentId;
 
+//    @ManyToOne
+//    @JoinColumn(name = "apartment_id", nullable = false)
+//    private Apartment apartment;
+
     @Lob
+    @Type(type="org.hibernate.type.BinaryType")
     @Column(name = "photo", columnDefinition = "bytea")
     private byte[] photo;
+
+    @Override
+    public String toString() {
+        return "ApartmentPhoto{" +
+                "id=" + id +
+                ", apartmentId=" + apartmentId +
+                ", photo=" + Arrays.toString(photo) +
+                '}';
+    }
 }

@@ -31,6 +31,10 @@ public class ApartmentFeedback {
     @Column(name = "apartment_id")
     private UUID apartmentId;
 
+//    @ManyToOne
+//    @JoinColumn(name = "apartment_id", nullable = false)
+//    private Apartment apartment;
+
     @Column(name = "author_id")
     private UUID authorId;
 
