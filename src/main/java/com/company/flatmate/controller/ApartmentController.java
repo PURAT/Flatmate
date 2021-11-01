@@ -1,13 +1,10 @@
 package com.company.flatmate.controller;
 
 import com.company.flatmate.dto.ApartmentFeedbackDto;
-import com.company.flatmate.dto.ApartmentPhotoDto;
 import com.company.flatmate.entity.Apartment;
 import com.company.flatmate.entity.ApartmentFeedback;
-import com.company.flatmate.entity.ApartmentPhoto;
 import com.company.flatmate.service.ApartmentService;
 import com.company.flatmate.util.mapper.ApartmentFeedbackMapper;
-import com.company.flatmate.util.mapper.ApartmentPhotoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
@@ -50,7 +47,7 @@ public class ApartmentController {
     public String getApartment() {
         Apartment apartment = new Apartment();
         apartment.setId(UUID.fromString("400db01e-3999-11ec-8d3d-0242ac130003"));
-        apartment.setLocation(new Point(10, 10));
+        apartment.setLocation(new Point(10.565, 10.987));
         service.save(apartment);
         return null;
     }
