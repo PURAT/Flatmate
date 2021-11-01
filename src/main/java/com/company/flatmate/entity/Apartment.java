@@ -1,6 +1,9 @@
 package com.company.flatmate.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import org.springframework.data.geo.Point;
@@ -25,11 +28,10 @@ public class Apartment {
 
     @Column(name = "rooms_count")
     private Integer roomsCount;
-
     @Column(name = "lodger_count")
     private Integer lodgerCount;
 
-    @Column(name = "location", columnDefinition = "point")
+    @Column(name = "location")
     private Point location;
 
     @Column(name = "address")
