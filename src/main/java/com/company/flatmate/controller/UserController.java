@@ -17,21 +17,16 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/hello")
-    public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return String.format("Hello %s!", name);
-    }
-
-    @PostMapping(value = "/addUser", consumes = "application/json", produces = "application/json")
+    @PostMapping(
+            value = "/user", consumes = "application/json", produces = "application/json")
     public User addUser(@RequestBody User user) throws Exception {
-        System.out.println(user.getFirstname());
         userService.save(user);
         return user;
     }
 
-    @GetMapping(value = "/getUsers")
+    @GetMapping(
+            value = "/user")
     public List<User> getUsers() throws Exception {
-
         return userService.getUsers();
     }
 }

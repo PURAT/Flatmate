@@ -1,43 +1,46 @@
 package com.company.flatmate.entity;
 
-import javax.persistence.*;
+import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
+import java.util.List;
+import java.util.UUID;
+
+@Data
 @Entity
-@Table(name="USER_T")
+@Table(name="user_t")
 public class User {
 
+    @Column(name = "user_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID userId;
 
-    @Column(name="USERNAME", nullable = false)
+    @Column(name="username", nullable = false)
     private String username;
 
-    @Column(name="FIRSTNAME", nullable = false)
+    @Column(name="firstname", nullable = false)
     private String firstname;
 
+    @Column(name="city")
+    private String city;
 
-    public int getId() {
-        return id;
-    }
+    @Column(name="email")
+    private String email;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @OneToMany(targetEntity = Renter.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "user_id"))
+    private List<Renter> renters;
 
-    public String getUsername() {
-        return username;
-    }
+    @OneToMany(targetEntity = Landlord.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "user_id"))
+    private List<Landlord> landlords;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
+    @Lob
+    @Type(type="org.hibernate.type.BinaryType")
+    @Column(name="photo", columnDefinition = "bytea")
+    private byte[]photo;
 }
