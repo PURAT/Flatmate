@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @RestController
@@ -24,7 +25,7 @@ public class RenterController {
     @PostMapping(
             value = "/renter", consumes = "application/json", produces = "application/json")
     public Renter addRenter(@RequestBody Renter renter) throws Exception {
-        renter.setPublicationDate(new Timestamp(System.currentTimeMillis()));
+        renter.setPublicationDate(OffsetDateTime.now());
         renterService.save(renter);
         return renter;
     }
