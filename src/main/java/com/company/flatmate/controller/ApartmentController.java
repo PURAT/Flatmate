@@ -18,11 +18,14 @@ import java.util.UUID;
 @RestController
 public class ApartmentController {
 
+    private ApartmentFeedbackMapper apartmentFeedbackMapper;
+
     private ApartmentService service;
 
     @Autowired
-    public ApartmentController(ApartmentService service) {
+    public ApartmentController(ApartmentService service, ApartmentFeedbackMapper mapper) {
         this.service = service;
+        this.apartmentFeedbackMapper = mapper;
     }
 
     @PostMapping(value = "/apartment")
@@ -38,7 +41,7 @@ public class ApartmentController {
         feedback.setAuthorId(UUID.randomUUID());
         feedback.setValue(5);
 
-        ApartmentFeedbackDto dto = ApartmentFeedbackMapper.INSTANCE.feedbackToDto(feedback);
+        ApartmentFeedbackDto dto = apartmentFeedbackMapper.feedbackToDto(feedback);
 
         return dto.toString();
     }

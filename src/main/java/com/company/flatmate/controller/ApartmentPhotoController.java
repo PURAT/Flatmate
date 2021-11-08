@@ -15,11 +15,14 @@ import java.util.UUID;
 @RequestMapping("/apartment")
 public class ApartmentPhotoController {
 
+    private ApartmentPhotoMapper apartmentPhotoMapper;
+
     private ApartmentPhotoService service;
 
     @Autowired
-    public ApartmentPhotoController(ApartmentPhotoService service) {
+    public ApartmentPhotoController(ApartmentPhotoService service, ApartmentPhotoMapper mapper) {
         this.service = service;
+        this.apartmentPhotoMapper = mapper;
     }
 
     @PostMapping(value = "/photo")
@@ -34,9 +37,9 @@ public class ApartmentPhotoController {
         ApartmentPhotoDto dto = new ApartmentPhotoDto();
         dto.setApartmentId(UUID.fromString("400db01e-3999-11ec-8d3d-0242ac130003"));
         dto.setId(UUID.randomUUID());
-        dto.setPhoto(new byte[] {3, 5, 6, 50, 127, 0});
+        dto.setPhoto(new byte[]{3, 5, 6, 50, 127, 0});
 
-        ApartmentPhoto photo = ApartmentPhotoMapper.INSTANCE.dtoToPhoto(dto);
+        ApartmentPhoto photo = apartmentPhotoMapper.dtoToPhoto(dto);
         System.out.println(Arrays.toString(photo.getPhoto()));
         service.save(photo);
 
