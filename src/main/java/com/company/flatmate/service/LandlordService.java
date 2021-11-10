@@ -12,7 +12,6 @@ public class LandlordService {
 
     private LandlordRepository repository;
 
-    @Autowired
     LandlordService(LandlordRepository repository) {
         this.repository = repository;
     }

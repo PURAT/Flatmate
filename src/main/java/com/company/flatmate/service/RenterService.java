@@ -12,7 +12,6 @@ public class RenterService {
 
     private RenterRepository repository;
 
-    @Autowired
     RenterService(RenterRepository repository) {
         this.repository = repository;
     }

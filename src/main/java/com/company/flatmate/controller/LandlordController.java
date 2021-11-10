@@ -15,7 +15,6 @@ public class LandlordController {
 
     private final LandlordService landlordService;
 
-    @Autowired
     public LandlordController(LandlordService landlordService) {
         this.landlordService = landlordService;
     }

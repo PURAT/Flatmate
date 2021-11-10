@@ -20,7 +20,6 @@ public class ApartmentController {
 
     private ApartmentService service;
 
-    @Autowired
     public ApartmentController(ApartmentService service) {
         this.service = service;
     }
@@ -31,7 +30,7 @@ public class ApartmentController {
         return HttpStatus.OK;
     }
 
-    @GetMapping("/apartment_feedback")
+    @GetMapping("/apartment/feedback")
     public String getApartmentFeedback() {
         ApartmentFeedback feedback = new ApartmentFeedback();
         feedback.setApartmentId(UUID.randomUUID());
