@@ -2,6 +2,7 @@ package com.company.flatmate.controller;
 
 import com.company.flatmate.entity.Renter;
 import com.company.flatmate.service.RenterService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,11 +14,11 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 @RestController
+@SecurityRequirement(name = "flatmateapi")
 public class RenterController {
 
     private final RenterService renterService;
 
-    @Autowired
     public RenterController(RenterService renterService) {
         this.renterService = renterService;
     }
