@@ -15,7 +15,6 @@ public class RenterFeedbackController {
 
     private final RenterFeedbackService renterFeedbackService;
 
-    @Autowired
     public RenterFeedbackController(RenterFeedbackService renterFeedbackService) {
         this.renterFeedbackService = renterFeedbackService;
     }

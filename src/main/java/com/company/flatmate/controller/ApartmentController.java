@@ -20,7 +20,6 @@ public class ApartmentController {
 
     private ApartmentService service;
 
-    @Autowired
     public ApartmentController(ApartmentService service) {
         this.service = service;
     }

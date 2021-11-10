@@ -15,7 +15,6 @@ public class ApartmentFeedbackController {
 
     private ApartmentFeedbackService service;
 
-    @Autowired
     public ApartmentFeedbackController(ApartmentFeedbackService service) {
         this.service = service;
     }

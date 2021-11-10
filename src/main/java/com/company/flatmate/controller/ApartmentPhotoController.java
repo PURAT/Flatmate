@@ -17,7 +17,6 @@ public class ApartmentPhotoController {
 
     private ApartmentPhotoService service;
 
-    @Autowired
     public ApartmentPhotoController(ApartmentPhotoService service) {
         this.service = service;
     }

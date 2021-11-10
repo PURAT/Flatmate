@@ -10,7 +10,6 @@ public class ApartmentService {
 
     private ApartmentRepository repository;
 
-    @Autowired
     public ApartmentService(ApartmentRepository repository) {
         this.repository = repository;
     }
