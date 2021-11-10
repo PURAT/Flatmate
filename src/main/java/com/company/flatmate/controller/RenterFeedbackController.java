@@ -20,14 +20,14 @@ public class RenterFeedbackController {
     }
 
     @PostMapping(
-            value = "/renter_feedback", consumes = "application/json", produces = "application/json")
+            value = "/renter/feedback", consumes = "application/json", produces = "application/json")
     public RenterFeedback addRenterFeedback(@RequestBody RenterFeedback renterFeedback) throws Exception {
         renterFeedbackService.save(renterFeedback);
         return renterFeedback;
     }
 
     @GetMapping(
-            value = "/renter_feedback")
+            value = "/renter/feedback")
     public List<RenterFeedback> getRenterFeedbacks() throws Exception {
         return renterFeedbackService.getRenterFeedbacks();
     }

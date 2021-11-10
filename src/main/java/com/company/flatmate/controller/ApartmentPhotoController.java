@@ -27,7 +27,7 @@ public class ApartmentPhotoController {
         return HttpStatus.OK;
     }
 
-    @GetMapping("/apartment_photo")
+    @GetMapping("/apartment/photo")
     public String getApartmentPhoto() {
 
         ApartmentPhotoDto dto = new ApartmentPhotoDto();
