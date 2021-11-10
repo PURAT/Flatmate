@@ -4,6 +4,7 @@ import com.company.flatmate.dto.ApartmentPhotoDto;
 import com.company.flatmate.entity.ApartmentPhoto;
 import com.company.flatmate.service.ApartmentPhotoService;
 import com.company.flatmate.util.mapper.ApartmentPhotoMapper;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/apartment")
+@SecurityRequirement(name = "flatmateapi")
 public class ApartmentPhotoController {
 
     private ApartmentPhotoService service;

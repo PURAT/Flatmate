@@ -2,12 +2,14 @@ package com.company.flatmate.controller;
 
 import com.company.flatmate.entity.User;
 import com.company.flatmate.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@SecurityRequirement(name = "flatmateapi")
 public class UserController {
 
     private final UserService userService;
