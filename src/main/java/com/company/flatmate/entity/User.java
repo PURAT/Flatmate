@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name="user_t")
+@Table(name = "users")
 public class User {
 
     @Column(name = "user_id")
@@ -19,16 +19,19 @@ public class User {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID userId;
 
-    @Column(name="username", nullable = false)
-    private String username;
+    @Column(name = "login", nullable = false)
+    private String login;
 
-    @Column(name="firstname", nullable = false)
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "firstname", nullable = false)
     private String firstname;
 
-    @Column(name="city")
+    @Column(name = "city")
     private String city;
 
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
 
     @OneToMany(targetEntity = Renter.class, cascade = CascadeType.ALL)
@@ -40,7 +43,12 @@ public class User {
     private List<Landlord> landlords;
 
     @Lob
-    @Type(type="org.hibernate.type.BinaryType")
-    @Column(name="photo", columnDefinition = "bytea")
-    private byte[]photo;
+    @Type(type = "org.hibernate.type.BinaryType")
+    @Column(name = "photo", columnDefinition = "bytea")
+    private byte[] photo;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
 }
