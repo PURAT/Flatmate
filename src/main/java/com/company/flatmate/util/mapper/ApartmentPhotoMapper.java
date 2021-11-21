@@ -5,7 +5,7 @@ import com.company.flatmate.entity.ApartmentPhoto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ApartmentPhotoMapper {
     ApartmentPhotoMapper INSTANCE = Mappers.getMapper(ApartmentPhotoMapper.class);
 

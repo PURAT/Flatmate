@@ -5,7 +5,7 @@ import com.company.flatmate.entity.ApartmentFeedback;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ApartmentFeedbackMapper {
     ApartmentFeedbackMapper INSTANCE = Mappers.getMapper(ApartmentFeedbackMapper.class);
 
