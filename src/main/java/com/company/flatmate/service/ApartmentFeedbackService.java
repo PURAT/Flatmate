@@ -10,7 +10,6 @@ public class ApartmentFeedbackService {
 
     private ApartmentFeedbackRepository repository;
 
-    @Autowired
     public ApartmentFeedbackService(ApartmentFeedbackRepository repository) {
         this.repository = repository;
     }

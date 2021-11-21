@@ -7,8 +7,6 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface ApartmentPhotoMapper {
-    ApartmentPhotoMapper INSTANCE = Mappers.getMapper(ApartmentPhotoMapper.class);
-
     ApartmentPhotoDto photoToDto(ApartmentPhoto photo);
 
     ApartmentPhoto dtoToPhoto(ApartmentPhotoDto photoDto);

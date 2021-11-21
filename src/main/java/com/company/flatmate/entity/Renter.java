@@ -4,7 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Data
@@ -22,7 +22,7 @@ public class Renter {
     private int maxPrice;
 
     @Column(name="publication_date", columnDefinition = "timestamp with time zone")
-    private Timestamp publicationDate;
+    private OffsetDateTime publicationDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

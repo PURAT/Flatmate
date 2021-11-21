@@ -7,8 +7,6 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface ApartmentFeedbackMapper {
-    ApartmentFeedbackMapper INSTANCE = Mappers.getMapper(ApartmentFeedbackMapper.class);
-
     ApartmentFeedbackDto feedbackToDto(ApartmentFeedback feedback);
 
     ApartmentFeedback dtoToFeedback(ApartmentFeedbackDto feedbackDto);

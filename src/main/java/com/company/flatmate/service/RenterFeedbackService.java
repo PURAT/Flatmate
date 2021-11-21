@@ -12,7 +12,6 @@ public class RenterFeedbackService {
 
     private RenterFeedbackRepository repository;
 
-    @Autowired
     RenterFeedbackService(RenterFeedbackRepository repository) {
         this.repository = repository;
     }
