@@ -1,0 +1,2 @@
+-- insert into public.users (user_id, login, password, role_id) values (10, 'admin', '$2a$12$UTebuE95b.cI9lkpAcktXeaKy0fJuugEl1DItKkAERuufEaMjXaPW', 2);
+-- нужно немного изменить запись выше, чтобы ссответствовать полям НАШЕГО user'a

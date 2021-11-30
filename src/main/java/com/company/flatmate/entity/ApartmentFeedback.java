@@ -22,7 +22,7 @@ public class ApartmentFeedback {
     @Column(name = "apartment_feedback_id")
     private UUID id;
 
-    @Column(name = "value")
+    @Column(name = "rating")
     private Integer value;
 
     @Column(name = "feedback", columnDefinition = "text")
