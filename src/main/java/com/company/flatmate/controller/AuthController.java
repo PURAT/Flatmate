@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/auth")
@@ -32,8 +33,10 @@ public class AuthController {
     public ResponseEntity<?> registerUser(@RequestBody @Valid RegistrationRequest request) {
         try {
             User user = new User();
+            user.setUserId(UUID.randomUUID());
             user.setPassword(request.getPassword());
             user.setLogin(request.getLogin());
+            user.setFirstname("Заглушка имени");
             userService.saveUser(user);
         } catch (Exception e) {
             return ResponseEntity
