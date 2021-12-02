@@ -31,9 +31,12 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody @Valid RegistrationRequest request) {
         try {
-            User user = new User();
-            user.setPassword(request.getPassword());
-            user.setLogin(request.getLogin());
+            User user = new User()
+                    .setFirstname(request.getFirstname())
+                    .setLogin(request.getLogin())
+                    .setPassword(request.getPassword())
+                    .setCity(request.getCity())
+                    .setEmail(request.getEmail());
             userService.saveUser(user);
         } catch (Exception e) {
             return ResponseEntity

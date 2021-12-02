@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name="renter_feedback")
+@Table(name = "renter_feedback")
 public class RenterFeedback {
 
     @Column(name = "renter_feedback_id")
@@ -17,10 +17,10 @@ public class RenterFeedback {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID renterFeedbackId;
 
-    @Column(name="value", nullable = false)
+    @Column(name = "rating", nullable = false)
     private int value;
 
-    @Column(name="feedback")
+    @Column(name = "feedback")
     private String feedback;
 
     @ManyToOne
