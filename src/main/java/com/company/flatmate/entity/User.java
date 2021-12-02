@@ -1,6 +1,7 @@
 package com.company.flatmate.entity;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
+@Accessors(chain = true)
 @Entity
 @Table(name = "users")
 public class User {
