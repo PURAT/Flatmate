@@ -1,43 +1,56 @@
 package com.company.flatmate.entity;
 
-import javax.persistence.*;
+import lombok.Data;
+import lombok.experimental.Accessors;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
+import java.util.List;
+import java.util.UUID;
+
+@Data
+@Accessors(chain = true)
 @Entity
-@Table(name="USER_T")
+@Table(name = "users")
 public class User {
 
+    @Column(name = "user_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID userId;
 
-    @Column(name="USERNAME", nullable = false)
-    private String username;
+    @Column(name = "login", nullable = false)
+    private String login;
 
-    @Column(name="FIRSTNAME", nullable = false)
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "firstname", nullable = false)
     private String firstname;
 
+    @Column(name = "city")
+    private String city;
 
-    public int getId() {
-        return id;
-    }
+    @Column(name = "email")
+    private String email;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @OneToMany(targetEntity = Renter.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "user_id"))
+    private List<Renter> renters;
 
-    public String getUsername() {
-        return username;
-    }
+    @OneToMany(targetEntity = Landlord.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "user_id"))
+    private List<Landlord> landlords;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    @Lob
+    @Type(type = "org.hibernate.type.BinaryType")
+    @Column(name = "photo", columnDefinition = "bytea")
+    private byte[] photo;
 
-    public String getFirstname() {
-        return firstname;
-    }
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
 }
