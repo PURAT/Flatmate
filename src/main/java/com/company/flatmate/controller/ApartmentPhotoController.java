@@ -5,6 +5,7 @@ import com.company.flatmate.entity.ApartmentPhoto;
 import com.company.flatmate.service.ApartmentPhotoService;
 import com.company.flatmate.util.mapper.ApartmentPhotoMapper;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,27 +14,21 @@ import java.util.Arrays;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/apartment")
+@RequestMapping("/apartment/photo")
 @SecurityRequirement(name = "flatmateapi")
+@AllArgsConstructor
 public class ApartmentPhotoController {
 
-    private ApartmentPhotoMapper apartmentPhotoMapper;
+    private final ApartmentPhotoMapper apartmentPhotoMapper;
+    private final ApartmentPhotoService service;
 
-    private ApartmentPhotoService service;
-
-
-    public ApartmentPhotoController(ApartmentPhotoService service, ApartmentPhotoMapper mapper) {
-        this.service = service;
-        this.apartmentPhotoMapper = mapper;
-    }
-
-    @PostMapping(value = "/photo")
+    @PostMapping
     public HttpStatus addApartmentPhoto(@RequestBody ApartmentPhoto photo) {
         service.save(photo);
         return HttpStatus.OK;
     }
 
-    @GetMapping("/apartment/photo")
+    @GetMapping
     public String getApartmentPhoto() {
 
         ApartmentPhotoDto dto = new ApartmentPhotoDto();
