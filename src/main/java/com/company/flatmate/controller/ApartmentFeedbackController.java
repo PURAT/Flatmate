@@ -19,8 +19,8 @@ public class ApartmentFeedbackController {
 
     private final ApartmentFeedbackService service;
 
-    @GetMapping
-    public ResponseEntity<?> getApartmentFeedbacks(@PathVariable("apart_id") String id) {
+    @GetMapping(params = "apart_id")
+    public ResponseEntity<?> getApartmentFeedbacks(@RequestParam("apart_id") String id) {
         try {
             List<ApartmentFeedbackDto> list = service.findAllByAuthorId(UUID.fromString(id));
             return ResponseEntity.ok(list);
@@ -31,8 +31,8 @@ public class ApartmentFeedbackController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<?> getApartmentFeedbacksByAuthor(@PathVariable("author_id") String id) {
+    @GetMapping(params = "author_id")
+    public ResponseEntity<?> getApartmentFeedbacksByAuthor(@RequestParam("author_id") String id) {
         try {
             List<ApartmentFeedbackDto> list = service.findAllByApartmentId(UUID.fromString(id));
             return ResponseEntity.ok(list);

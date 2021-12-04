@@ -15,17 +15,20 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 public class ApartmentDto {
-    @JsonProperty("rooms_count")
+    @JsonProperty("id")
+    private UUID id;
+
+    @JsonProperty("roomsCount")
     private Integer roomsCount;
 
-    @JsonProperty("lodger_count")
+    @JsonProperty("lodgerCount")
     private Double lodgerCount;
-
-    @JsonProperty("location")
-    private Point location;
 
     @JsonProperty("address")
     private String address;
+
+    @JsonProperty("location")
+    private Point location;
 
     @JsonProperty("photos")
     private List<ApartmentPhoto> photos;

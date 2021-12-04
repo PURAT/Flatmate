@@ -27,20 +27,20 @@ public class ApartmentController {
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/query")
+    @GetMapping(params = {"min", "max"})
     public ResponseEntity<?> getApartmentsByPrice(@RequestParam(value = "min") double min,
                                                   @RequestParam(value = "max") double max) {
         List<ApartmentDto> list = service.findAllByPriceBetween(min, max);
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/query")
+    @GetMapping(params = "count_room")
     public ResponseEntity<?> getApartmentsByRooms(@RequestParam(value = "count_room") int count) {
         List<ApartmentDto> list = service.findAllByRoomsCount(count);
         return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/query")
+    @GetMapping(params = "count_lodger")
     public ResponseEntity<?> getApartmentsByLodgers(@RequestParam(value = "count_lodger") int count) {
         List<ApartmentDto> list = service.findAllByLodgerCount(count);
         return ResponseEntity.ok(list);
@@ -52,7 +52,7 @@ public class ApartmentController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/query")
+    @DeleteMapping(params = "date")
     public ResponseEntity<?> deleteOutdatedApartments(@RequestParam("date") OffsetDateTime date) {
         service.deleteAllByDateBefore(date);
         return ResponseEntity.ok().build();

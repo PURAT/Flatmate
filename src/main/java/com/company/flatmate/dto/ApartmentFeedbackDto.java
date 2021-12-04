@@ -10,15 +10,18 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 public class ApartmentFeedbackDto {
+    @JsonProperty("id")
+    private UUID id;
+
     @JsonProperty("value")
     private Integer value;
 
     @JsonProperty("feedback")
     private String feedback;
 
-    @JsonIgnore
+    @JsonProperty("apartmentId")
     private UUID apartmentId;
 
-    @JsonIgnore
+    @JsonProperty("authorId")
     private UUID authorId;
 }
