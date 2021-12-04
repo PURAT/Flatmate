@@ -5,7 +5,9 @@ import com.company.flatmate.entity.Apartment;
 import com.company.flatmate.entity.ApartmentFeedback;
 import com.company.flatmate.service.ApartmentService;
 import com.company.flatmate.util.mapper.ApartmentFeedbackMapper;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,7 @@ import java.util.UUID;
 
 @RestController
 @SecurityRequirement(name = "flatmateapi")
+@Tag(name="apartment", description="Операции с квартирой")
 public class ApartmentController {
 
     private ApartmentFeedbackMapper apartmentFeedbackMapper;
@@ -30,12 +33,20 @@ public class ApartmentController {
         this.apartmentFeedbackMapper = mapper;
     }
 
+    @Operation(
+            summary = "Создание квартиры",
+            description = "Позволяет создать квартиру"
+    )
     @PostMapping(value = "/apartment")
     public HttpStatus addApartment(@RequestBody Apartment apartment) {
         service.save(apartment);
         return HttpStatus.OK;
     }
 
+    @Operation(
+            summary = "Получение отзывов о квартире",
+            description = "Позволяет получить отзывы о квартире"
+    )
     @GetMapping("/apartment/feedback")
     public String getApartmentFeedback() {
         ApartmentFeedback feedback = new ApartmentFeedback();
@@ -48,6 +59,10 @@ public class ApartmentController {
         return dto.toString();
     }
 
+    @Operation(
+            summary = "Получение квартир",
+            description = "Позволяет получить квартиры"
+    )
     @GetMapping("/apartment")
     public String getApartment() {
         Apartment apartment = new Apartment();

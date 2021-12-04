@@ -4,7 +4,9 @@ import com.company.flatmate.dto.ApartmentPhotoDto;
 import com.company.flatmate.entity.ApartmentPhoto;
 import com.company.flatmate.service.ApartmentPhotoService;
 import com.company.flatmate.util.mapper.ApartmentPhotoMapper;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/apartment")
 @SecurityRequirement(name = "flatmateapi")
+@Tag(name="apartment photo", description="Фотографии квартиры")
 public class ApartmentPhotoController {
 
     private ApartmentPhotoMapper apartmentPhotoMapper;
@@ -27,12 +30,20 @@ public class ApartmentPhotoController {
         this.apartmentPhotoMapper = mapper;
     }
 
+    @Operation(
+            summary = "Отправка фотографии квартиры",
+            description = "Позволяет отправить фотографию квартиры"
+    )
     @PostMapping(value = "/photo")
     public HttpStatus addApartmentPhoto(@RequestBody ApartmentPhoto photo) {
         service.save(photo);
         return HttpStatus.OK;
     }
 
+    @Operation(
+            summary = "Получение фотографий квартиры",
+            description = "Позволяет получить фотографии квартиры"
+    )
     @GetMapping("/apartment/photo")
     public String getApartmentPhoto() {
 

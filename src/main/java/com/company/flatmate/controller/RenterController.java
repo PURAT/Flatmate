@@ -2,7 +2,9 @@ package com.company.flatmate.controller;
 
 import com.company.flatmate.entity.Renter;
 import com.company.flatmate.service.RenterService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @RestController
 @SecurityRequirement(name = "flatmateapi")
+@Tag(name="renter", description="Операции с жильцом")
 public class RenterController {
 
     private final RenterService renterService;
@@ -23,6 +26,10 @@ public class RenterController {
         this.renterService = renterService;
     }
 
+    @Operation(
+            summary = "Создание нанимателя",
+            description = "Позволяет создать нанимателя"
+    )
     @PostMapping(
             value = "/renter", consumes = "application/json", produces = "application/json")
     public Renter addRenter(@RequestBody Renter renter) throws Exception {
@@ -31,6 +38,10 @@ public class RenterController {
         return renter;
     }
 
+    @Operation(
+            summary = "Получение нанимателей",
+            description = "Позволяет получить нанимателей"
+    )
     @GetMapping(
             value = "/renter")
     public List<Renter> getRenters() throws Exception {
