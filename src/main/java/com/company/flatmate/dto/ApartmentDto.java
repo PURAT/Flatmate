@@ -15,14 +15,11 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 public class ApartmentDto {
-    @JsonIgnore
-    private UUID id;
-
     @JsonProperty("rooms_count")
     private Integer roomsCount;
 
     @JsonProperty("lodger_count")
-    private Integer lodgerCount;
+    private Double lodgerCount;
 
     @JsonProperty("location")
     private Point location;
@@ -39,7 +36,7 @@ public class ApartmentDto {
     @JsonProperty("price")
     private Double price;
 
-    @JsonIgnore
+    @JsonProperty("date")
     private OffsetDateTime publicationDate = OffsetDateTime.now();
 
     @JsonProperty("active")
