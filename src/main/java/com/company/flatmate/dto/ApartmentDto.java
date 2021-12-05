@@ -2,7 +2,6 @@ package com.company.flatmate.dto;
 
 import com.company.flatmate.entity.ApartmentFeedback;
 import com.company.flatmate.entity.ApartmentPhoto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +21,7 @@ public class ApartmentDto {
     private Integer roomsCount;
 
     @JsonProperty("lodgerCount")
-    private Double lodgerCount;
+    private Integer lodgerCount;
 
     @JsonProperty("address")
     private String address;

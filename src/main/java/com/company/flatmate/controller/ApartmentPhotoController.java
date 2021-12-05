@@ -5,6 +5,7 @@ import com.company.flatmate.security.payload.MessageResponse;
 import com.company.flatmate.service.ApartmentPhotoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class ApartmentPhotoController {
 
     private final ApartmentPhotoService service;
 
-    @GetMapping
+    @GetMapping(params = "apart_id")
     public ResponseEntity<?> getApartmentPhotos(@RequestParam("apart_id") String id) {
         try {
             List<ApartmentPhotoDto> list = service.findAllByApartmentId(UUID.fromString(id));
@@ -28,6 +29,9 @@ public class ApartmentPhotoController {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Apartment ID is entered incorrectly!"));
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity
+                    .notFound().build();
         }
     }
 

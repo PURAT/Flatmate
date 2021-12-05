@@ -6,11 +6,13 @@ import com.company.flatmate.service.ApartmentService;
 import com.company.flatmate.util.mapper.ApartmentFeedbackMapper;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @RestController
@@ -20,6 +22,21 @@ import java.util.UUID;
 public class ApartmentController {
 
     private final ApartmentService service;
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getActiveApartments(@PathVariable String id) {
+        try {
+            return ResponseEntity.ok(service.findById(UUID.fromString(id)));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Apartment ID is entered incorrectly!"));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity
+                    .notFound().build();
+        }
+    }
 
     @GetMapping
     public ResponseEntity<?> getActiveApartments() {
@@ -66,6 +83,9 @@ public class ApartmentController {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Apartment ID is entered incorrectly!"));
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity
+                    .notFound().build();
         }
         return ResponseEntity.ok().build();
     }
@@ -75,14 +95,4 @@ public class ApartmentController {
         service.deleteAllByActive(false);
         return ResponseEntity.ok().build();
     }
-//
-//    @GetMapping
-//    public String getApartment() {
-//        Apartment apartment = new Apartment();
-//        apartment.setId(UUID.fromString("400db01e-3999-11ec-8d3d-0242ac130003"));
-//        apartment.setLocation(new Point(10.565, 10.987));
-////        service.save(apartment);
-//        return null;
-//    }
-
 }

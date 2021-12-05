@@ -5,6 +5,7 @@ import com.company.flatmate.security.payload.MessageResponse;
 import com.company.flatmate.service.ApartmentFeedbackService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class ApartmentFeedbackController {
     @GetMapping(params = "apart_id")
     public ResponseEntity<?> getApartmentFeedbacks(@RequestParam("apart_id") String id) {
         try {
-            List<ApartmentFeedbackDto> list = service.findAllByAuthorId(UUID.fromString(id));
+            List<ApartmentFeedbackDto> list = service.findAllByApartmentId(UUID.fromString(id));
             return ResponseEntity.ok(list);
         } catch (IllegalArgumentException e) {
             return ResponseEntity
@@ -34,12 +35,15 @@ public class ApartmentFeedbackController {
     @GetMapping(params = "author_id")
     public ResponseEntity<?> getApartmentFeedbacksByAuthor(@RequestParam("author_id") String id) {
         try {
-            List<ApartmentFeedbackDto> list = service.findAllByApartmentId(UUID.fromString(id));
+            List<ApartmentFeedbackDto> list = service.findAllByAuthorId(UUID.fromString(id));
             return ResponseEntity.ok(list);
         } catch (IllegalArgumentException e) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Apartment ID is entered incorrectly!"));
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity
+                    .notFound().build();
         }
     }
 

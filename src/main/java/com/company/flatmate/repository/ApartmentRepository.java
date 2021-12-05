@@ -7,10 +7,13 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.Nonnull;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface ApartmentRepository extends CrudRepository<Apartment, UUID> {
+
+    Optional<Apartment> findById(@Nonnull UUID id);
 
     List<Apartment> findAll();
 
