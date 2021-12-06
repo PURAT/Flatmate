@@ -2,7 +2,6 @@ package com.company.flatmate.dto;
 
 import com.company.flatmate.entity.ApartmentFeedback;
 import com.company.flatmate.entity.ApartmentPhoto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,20 +14,20 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 public class ApartmentDto {
-    @JsonIgnore
+    @JsonProperty("id")
     private UUID id;
 
-    @JsonProperty("rooms_count")
+    @JsonProperty("roomsCount")
     private Integer roomsCount;
 
-    @JsonProperty("lodger_count")
+    @JsonProperty("lodgerCount")
     private Integer lodgerCount;
-
-    @JsonProperty("location")
-    private Point location;
 
     @JsonProperty("address")
     private String address;
+
+    @JsonProperty("location")
+    private Point location;
 
     @JsonProperty("photos")
     private List<ApartmentPhoto> photos;
@@ -39,7 +38,7 @@ public class ApartmentDto {
     @JsonProperty("price")
     private Double price;
 
-    @JsonIgnore
+    @JsonProperty("date")
     private OffsetDateTime publicationDate = OffsetDateTime.now();
 
     @JsonProperty("active")

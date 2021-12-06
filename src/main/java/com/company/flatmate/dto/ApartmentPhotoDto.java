@@ -10,11 +10,10 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 public class ApartmentPhotoDto {
-//    @JsonProperty("apartment_photo_id")
-    @JsonIgnore
+    @JsonProperty("id")
     private UUID id;
 
-    @JsonProperty("apartment_id")
+    @JsonProperty("apartmentId")
     private UUID apartmentId;
 
     @JsonProperty("photo")

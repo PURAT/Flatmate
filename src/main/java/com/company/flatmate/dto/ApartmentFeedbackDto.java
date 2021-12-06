@@ -10,8 +10,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 public class ApartmentFeedbackDto {
-//    @JsonProperty("apartment_feedback_id")
-    @JsonIgnore
+    @JsonProperty("id")
     private UUID id;
 
     @JsonProperty("value")
@@ -20,9 +19,9 @@ public class ApartmentFeedbackDto {
     @JsonProperty("feedback")
     private String feedback;
 
-    @JsonProperty("apartment_id")
+    @JsonProperty("apartmentId")
     private UUID apartmentId;
 
-    @JsonProperty("author_id")
+    @JsonProperty("authorId")
     private UUID authorId;
 }
