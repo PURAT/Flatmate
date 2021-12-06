@@ -1,31 +1,32 @@
 package com.company.flatmate.service;
 
+import com.company.flatmate.dto.UserDto;
 import com.company.flatmate.entity.Role;
 import com.company.flatmate.entity.User;
 import com.company.flatmate.repository.RoleRepository;
 import com.company.flatmate.repository.UserRepository;
+import com.company.flatmate.util.mapper.UserMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
-
-    public UserService(UserRepository repository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = repository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final UserMapper mapper;
 
     // нужно потом убрать
-    public void save(User user) {
-        userRepository.save(user);
+    public void save(UserDto user) {
+        userRepository.save(mapper.dtoToUser(user));
     }
 
     public List<User> getUsers() {
@@ -51,5 +52,9 @@ public class UserService {
             }
         }
         return null;
+    }
+
+    public UserDto findById(@Nonnull UUID id){
+        return mapper.userToDto(userRepository.findById(id).get());
     }
 }

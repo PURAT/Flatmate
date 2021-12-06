@@ -13,14 +13,17 @@ import java.util.UUID;
 @NoArgsConstructor
 public class RenterDto {
     @JsonIgnore
-    private UUID renterId;
+    private UUID id;
 
     @JsonProperty("max_price")
-    private int maxPrice;
+    private double maxPrice;
 
     @JsonIgnore
     private OffsetDateTime publicationDate = OffsetDateTime.now();
 
     @JsonProperty("user")
-    private User user;
+    private UUID userId; //todo ????
+
+    @JsonProperty("active")
+    private boolean active;
 }
