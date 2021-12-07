@@ -1,7 +1,6 @@
 package com.company.flatmate.service;
 
 import com.company.flatmate.dto.ApartmentFeedbackDto;
-import com.company.flatmate.entity.ApartmentFeedback;
 import com.company.flatmate.repository.ApartmentFeedbackRepository;
 import com.company.flatmate.util.mapper.ApartmentFeedbackMapper;
 import lombok.AllArgsConstructor;
@@ -11,7 +10,6 @@ import javax.annotation.Nonnull;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -23,15 +21,11 @@ public class ApartmentFeedbackService {
 
 
     public List<ApartmentFeedbackDto> findAllByApartmentId(@Nonnull UUID id) {
-        return repository.findAllByApartmentId(id).stream()
-                .map(mapper::feedbackToDto)
-                .collect(Collectors.toList());
+        return mapper.apartmentFeedbackListToDtoList(repository.findAllByApartmentId(id));
     }
 
     public List<ApartmentFeedbackDto> findAllByAuthorId(@Nonnull UUID id) {
-        return repository.findAllByAuthorId(id).stream()
-                .map(mapper::feedbackToDto)
-                .collect(Collectors.toList());
+        return mapper.apartmentFeedbackListToDtoList(repository.findAllByAuthorId(id));
     }
 
     public void save(ApartmentFeedbackDto feedback) {

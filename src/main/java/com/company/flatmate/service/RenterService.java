@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -20,26 +19,19 @@ public class RenterService {
 
 
     public List<RenterDto> getRenters(){
-        return repository.findAll().stream()
-                .map(mapper::renterToDto)
-                .collect(Collectors.toList());
+        return mapper.renterListToDtoList(repository.findAll());
     }
 
     public List<RenterDto> findAllByActive(boolean active){
-        return repository.findAllByActive(active).stream()
-                .map(mapper::renterToDto)
-                .collect(Collectors.toList());
+        return mapper.renterListToDtoList(repository.findAllByActive(active));
     }
 
     public RenterDto findById(@Nonnull UUID id){
-        return repository.findById(id).stream()
-                .map(mapper::renterToDto).findFirst().get();
+        return mapper.renterToDto(repository.findById(id).get());
     }
 
     public List<RenterDto> findAllByMaxPriceBetween(double min, double max){
-        return repository.findAllByMaxPriceBetweenAndActive(min, max, true).stream()
-                .map(mapper::renterToDto)
-                .collect(Collectors.toList());
+        return mapper.renterListToDtoList(repository.findAllByMaxPriceBetweenAndActive(min, max, true));
     }
 
     public void save(RenterDto renter) {
