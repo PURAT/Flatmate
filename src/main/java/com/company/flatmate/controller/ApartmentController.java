@@ -11,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("/apartment")
@@ -65,8 +63,8 @@ public class ApartmentController {
 
     @PostMapping
     public ResponseEntity<?> addApartment(@RequestBody ApartmentDto apartment) {
-        service.save(apartment);
-        return ResponseEntity.ok().build();
+        UUID id = service.save(apartment);
+        return ResponseEntity.ok(Collections.singletonMap("id", id));
     }
 
     @DeleteMapping(params = "date")

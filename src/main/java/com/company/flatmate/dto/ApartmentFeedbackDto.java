@@ -22,6 +22,7 @@ public class ApartmentFeedbackDto {
     @JsonProperty("apartmentId")
     private UUID apartmentId;
 
-    @JsonProperty("authorId")
-    private UUID authorId;
+//    @JsonProperty("authorId")
+@JsonIgnore
+private UUID authorId;
 }

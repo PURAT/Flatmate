@@ -59,8 +59,8 @@ public class ApartmentService {
                 .collect(Collectors.toList());
     }
 
-    public void save(ApartmentDto apartment) {
-        repository.save(mapper.dtoToApartment(apartment));
+    public UUID save(ApartmentDto apartment) {
+        return repository.save(mapper.dtoToApartment(apartment)).getId();
     }
 
     public void deleteAllByActive(boolean active) {
