@@ -32,20 +32,20 @@ public class ApartmentFeedbackController {
         }
     }
 
-    @GetMapping(params = "author_id")
-    public ResponseEntity<?> getApartmentFeedbacksByAuthor(@RequestParam("author_id") String id) {
-        try {
-            List<ApartmentFeedbackDto> list = service.findAllByAuthorId(UUID.fromString(id));
-            return ResponseEntity.ok(list);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Apartment ID is entered incorrectly!"));
-        } catch (EmptyResultDataAccessException e) {
-            return ResponseEntity
-                    .notFound().build();
-        }
-    }
+//    @GetMapping(params = "author_id")
+//    public ResponseEntity<?> getApartmentFeedbacksByAuthor(@RequestParam("author_id") String id) {
+//        try {
+//            List<ApartmentFeedbackDto> list = service.findAllByAuthorId(UUID.fromString(id));
+//            return ResponseEntity.ok(list);
+//        } catch (IllegalArgumentException e) {
+//            return ResponseEntity
+//                    .badRequest()
+//                    .body(new MessageResponse("Apartment ID is entered incorrectly!"));
+//        } catch (EmptyResultDataAccessException e) {
+//            return ResponseEntity
+//                    .notFound().build();
+//        }
+//    }
 
     @PostMapping
     public ResponseEntity<?> addApartmentFeedback(@RequestBody ApartmentFeedbackDto feedback) {
