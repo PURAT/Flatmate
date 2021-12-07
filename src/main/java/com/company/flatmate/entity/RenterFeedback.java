@@ -15,7 +15,7 @@ public class RenterFeedback {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID renterFeedbackId;
+    private UUID id;
 
     @Column(name = "rating", nullable = false)
     private int value;
@@ -23,11 +23,14 @@ public class RenterFeedback {
     @Column(name = "feedback")
     private String feedback;
 
-    @ManyToOne
-    @JoinColumn(name = "renter_id", nullable = false)
-    private Renter renter;
+//    @ManyToOne
+//    @JoinColumn(name = "renter_id", nullable = false)
+//    private Renter renterId;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
-    private User author;
+    @Column(name = "renter_id")
+    private UUID renterId; //TODO ???????
+
+//    @ManyToOne
+//    @JoinColumn(name = "author_id", nullable = false)
+//    private User author;
 }

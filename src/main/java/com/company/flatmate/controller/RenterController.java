@@ -1,39 +1,68 @@
 package com.company.flatmate.controller;
 
-import com.company.flatmate.entity.Renter;
+import com.company.flatmate.dto.RenterDto;
+import com.company.flatmate.security.payload.MessageResponse;
 import com.company.flatmate.service.RenterService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.AllArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
-import java.time.OffsetDateTime;
-import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @RestController
 @SecurityRequirement(name = "flatmateapi")
+@RequestMapping("/renter")
+@AllArgsConstructor
 public class RenterController {
 
-    private final RenterService renterService;
+    private final RenterService service;
 
-    public RenterController(RenterService renterService) {
-        this.renterService = renterService;
+    @GetMapping()
+    public ResponseEntity<?> getActiveRenters() throws Exception {
+        return ResponseEntity.ok(service.findAllByActive(true));
     }
 
-    @PostMapping(
-            value = "/renter", consumes = "application/json", produces = "application/json")
-    public Renter addRenter(@RequestBody Renter renter) throws Exception {
-        renter.setPublicationDate(OffsetDateTime.now());
-        renterService.save(renter);
-        return renter;
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getActiveApartments(@PathVariable String id) {
+        try {
+            return ResponseEntity.ok(service.findById(UUID.fromString(id)));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Renter ID is entered incorrectly!"));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity
+                    .notFound().build();
+        }
     }
 
-    @GetMapping(
-            value = "/renter")
-    public List<Renter> getRenters() throws Exception {
-        return renterService.getRenters();
+    @GetMapping(params = {"min", "max"})
+    public ResponseEntity<?> getRenterByMaxPrice(@RequestParam(value = "min") double min,
+                                                  @RequestParam(value = "max") double max) {
+        return ResponseEntity.ok(service.findAllByMaxPriceBetween(min, max));
+    }
+
+    @PostMapping
+    public ResponseEntity<?> addRenter(@RequestBody RenterDto renter) throws Exception {
+        service.save(renter);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteApartment(@PathVariable String id) {
+        try {
+            service.deleteById(UUID.fromString(id));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Renter ID is entered incorrectly!"));
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity
+                    .notFound().build();
+        }
+        return ResponseEntity.ok().build();
     }
 }

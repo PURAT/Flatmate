@@ -2,6 +2,7 @@ package com.company.flatmate.dto;
 
 import com.company.flatmate.entity.Landlord;
 import com.company.flatmate.entity.Renter;
+import com.company.flatmate.entity.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -14,10 +15,13 @@ import java.util.UUID;
 @NoArgsConstructor
 public class UserDto {
     @JsonIgnore
-    private UUID userId;
+    private UUID id;
 
-    @JsonProperty("username")
-    private String username;
+    @JsonProperty("login")
+    private String login;
+
+    @JsonProperty("password")
+    private String password;
 
     @JsonProperty("firstname")
     private String firstname;
@@ -36,4 +40,7 @@ public class UserDto {
 
     @JsonProperty("photo")
     private byte[]photo;
+
+    @JsonProperty("role")
+    private Role role;
 }

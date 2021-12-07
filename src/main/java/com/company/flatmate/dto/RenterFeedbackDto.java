@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class RenterFeedbackDto {
     @JsonIgnore
-    private UUID renterFeedbackId;
+    private UUID id;
 
     @JsonProperty("value")
     private int value;
@@ -22,8 +22,8 @@ public class RenterFeedbackDto {
     private String feedback;
 
     @JsonProperty("renter")
-    private Renter renter;
+    private UUID renterId;
 
-    @JsonProperty("author")
-    private User author;
+//    @JsonProperty("author")
+//    private User author;
 }

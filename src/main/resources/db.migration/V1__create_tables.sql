@@ -91,7 +91,7 @@ create table if not exists renter_feedback (
         renter_feedback_id uuid not null,
         feedback varchar(255),
         rating int4 not null,
-        author_id uuid not null,
+--        author_id uuid not null,
         renter_id uuid not null,
         constraint renter_fb_pkey primary key (renter_feedback_id),
         constraint fk_renter

@@ -15,13 +15,19 @@ public class Landlord {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID landlordId;
+    private UUID id;
 
-    @OneToOne
-    @JoinColumn(name = "apartment_id", nullable = false)
-    private Apartment apartment;
+//    @OneToOne
+//    @JoinColumn(name = "apartment_id", nullable = false)
+//    private Apartment apartment;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(name = "apartment_id", nullable = false)
+    private UUID apartmentId;
+
+//    @ManyToOne
+//    @JoinColumn(name = "user_id", nullable = false)
+//    private User user;
+
+    @Column(name = "user_id", nullable = false)
+    private UUID userId;
 }

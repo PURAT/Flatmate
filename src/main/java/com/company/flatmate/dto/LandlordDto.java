@@ -14,11 +14,11 @@ import java.util.UUID;
 public class LandlordDto {
 
     @JsonIgnore
-    private UUID landlordId;
+    private UUID id;
 
-    @JsonProperty("apartment")
-    private Apartment apartment;
+    @JsonProperty("apartment_id")
+    private UUID apartmentId;
 
-    @JsonProperty("user")
-    private User user;
+    @JsonProperty("user_id")
+    private UUID userId;
 }
