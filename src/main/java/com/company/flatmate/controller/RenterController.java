@@ -1,6 +1,7 @@
 package com.company.flatmate.controller;
 
 import com.company.flatmate.dto.RenterDto;
+import com.company.flatmate.exception.NoSuchDataException;
 import com.company.flatmate.security.payload.MessageResponse;
 import com.company.flatmate.service.RenterService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -21,7 +22,7 @@ public class RenterController {
     private final RenterService service;
 
     @GetMapping()
-    public ResponseEntity<?> getActiveRenters() throws Exception {
+    public ResponseEntity<?> getActiveRenters() {
         return ResponseEntity.ok(service.findAllByActive(true));
     }
 
@@ -29,13 +30,8 @@ public class RenterController {
     public ResponseEntity<?> getActiveApartments(@PathVariable String id) {
         try {
             return ResponseEntity.ok(service.findById(UUID.fromString(id)));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Renter ID is entered incorrectly!"));
-        } catch (NoSuchElementException e) {
-            return ResponseEntity
-                    .notFound().build();
+        } catch (Exception e) {
+            throw new NoSuchDataException();
         }
     }
 
@@ -46,7 +42,7 @@ public class RenterController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addRenter(@RequestBody RenterDto renter) throws Exception {
+    public ResponseEntity<?> addRenter(@RequestBody RenterDto renter) {
         service.save(renter);
         return ResponseEntity.ok().build();
     }
@@ -55,13 +51,8 @@ public class RenterController {
     public ResponseEntity<?> deleteApartment(@PathVariable String id) {
         try {
             service.deleteById(UUID.fromString(id));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Renter ID is entered incorrectly!"));
-        } catch (EmptyResultDataAccessException e) {
-            return ResponseEntity
-                    .notFound().build();
+        } catch (Exception e) {
+            throw new NoSuchDataException();
         }
         return ResponseEntity.ok().build();
     }

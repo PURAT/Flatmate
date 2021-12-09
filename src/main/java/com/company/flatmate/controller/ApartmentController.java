@@ -1,6 +1,7 @@
 package com.company.flatmate.controller;
 
 import com.company.flatmate.dto.ApartmentDto;
+import com.company.flatmate.exception.NoSuchDataException;
 import com.company.flatmate.security.payload.MessageResponse;
 import com.company.flatmate.service.ApartmentService;
 import com.company.flatmate.util.mapper.ApartmentFeedbackMapper;
@@ -26,13 +27,8 @@ public class ApartmentController {
     public ResponseEntity<?> getActiveApartments(@PathVariable String id) {
         try {
             return ResponseEntity.ok(service.findById(UUID.fromString(id)));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Apartment ID is entered incorrectly!"));
-        } catch (NoSuchElementException e) {
-            return ResponseEntity
-                    .notFound().build();
+        } catch (Exception e) {
+            throw new NoSuchDataException();
         }
     }
 
@@ -77,13 +73,8 @@ public class ApartmentController {
     public ResponseEntity<?> deleteApartment(@PathVariable String id) {
         try {
             service.deleteById(UUID.fromString(id));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Apartment ID is entered incorrectly!"));
-        } catch (EmptyResultDataAccessException e) {
-            return ResponseEntity
-                    .notFound().build();
+        } catch (Exception e) {
+            throw new NoSuchDataException();
         }
         return ResponseEntity.ok().build();
     }
