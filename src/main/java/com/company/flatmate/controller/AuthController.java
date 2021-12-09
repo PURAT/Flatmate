@@ -1,6 +1,7 @@
 package com.company.flatmate.controller;
 
 import com.company.flatmate.entity.User;
+import com.company.flatmate.exception.NoSuchDataException;
 import com.company.flatmate.security.jwt.JwtProvider;
 import com.company.flatmate.security.payload.AuthRequest;
 import com.company.flatmate.security.payload.AuthResponse;
@@ -38,9 +39,7 @@ public class AuthController {
                     .setEmail(request.getEmail());
             userService.saveUser(user);
         } catch (Exception e) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: " + e.getMessage()));
+            throw new NoSuchDataException();
         }
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }

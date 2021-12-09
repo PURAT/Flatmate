@@ -3,6 +3,7 @@ package com.company.flatmate.controller;
 import com.company.flatmate.dto.ApartmentFeedbackDto;
 import com.company.flatmate.dto.RenterFeedbackDto;
 import com.company.flatmate.entity.RenterFeedback;
+import com.company.flatmate.exception.NoSuchDataException;
 import com.company.flatmate.security.payload.MessageResponse;
 import com.company.flatmate.service.RenterFeedbackService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -26,15 +27,13 @@ public class RenterFeedbackController {
         try {
             List<RenterFeedbackDto> list = service.findAllByRenterId(UUID.fromString(id));
             return ResponseEntity.ok(list);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Renter ID is entered incorrectly!"));
+        } catch (Exception e) {
+            throw new NoSuchDataException();
         }
     }
 
     @PostMapping
-    public ResponseEntity<?> addRenterFeedback(@RequestBody RenterFeedbackDto renterFeedback) throws Exception {
+    public ResponseEntity<?> addRenterFeedback(@RequestBody RenterFeedbackDto renterFeedback) {
         service.save(renterFeedback);
         return ResponseEntity.ok().build();
     }

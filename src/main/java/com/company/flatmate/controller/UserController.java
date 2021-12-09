@@ -1,6 +1,7 @@
 package com.company.flatmate.controller;
 
 import com.company.flatmate.dto.UserDto;
+import com.company.flatmate.exception.NoSuchDataException;
 import com.company.flatmate.security.payload.MessageResponse;
 import com.company.flatmate.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -24,13 +25,8 @@ public class UserController {
     public ResponseEntity<?> getUserById(@PathVariable String id) {
         try {
             return ResponseEntity.ok(service.findById(UUID.fromString(id)));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("User ID is entered incorrectly!"));
-        } catch (NoSuchElementException e) {
-            return ResponseEntity
-                    .notFound().build();
+        } catch (Exception e) {
+            throw new NoSuchDataException();
         }
     }
 
@@ -38,18 +34,13 @@ public class UserController {
     public ResponseEntity<?> getUserByLogin(@RequestParam(value = "login") String login) {
         try {
             return ResponseEntity.ok(service.findByLogin(login));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("User login is entered incorrectly!"));
-        } catch (NoSuchElementException e) {
-            return ResponseEntity
-                    .notFound().build();
+        } catch (Exception e) {
+            throw new NoSuchDataException();
         }
     }
 
     @PostMapping
-    public ResponseEntity<?> addUser(@RequestBody UserDto user) throws Exception {
+    public ResponseEntity<?> addUser(@RequestBody UserDto user) {
         service.save(user);
         return ResponseEntity.ok().build();
     }
