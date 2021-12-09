@@ -1,28 +1,44 @@
 package com.company.flatmate.service;
 
-import com.company.flatmate.entity.Renter;
+import com.company.flatmate.dto.RenterDto;
 import com.company.flatmate.repository.RenterRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.company.flatmate.util.mapper.RenterMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class RenterService {
 
     private RenterRepository repository;
+    private final RenterMapper mapper;
 
-    RenterService(RenterRepository repository) {
-        this.repository = repository;
+
+    public List<RenterDto> getRenters(){
+        return mapper.renterListToDtoList(repository.findAll());
     }
 
-    public void save(Renter renter) {
-        repository.save(renter);
+    public List<RenterDto> findAllByActive(boolean active){
+        return mapper.renterListToDtoList(repository.findAllByActive(active));
     }
 
-    public List<Renter> getRenters(){
-        return repository.findAll();
+    public RenterDto findById(@Nonnull UUID id){
+        return mapper.renterToDto(repository.findById(id).get());
     }
 
+    public List<RenterDto> findAllByMaxPriceBetween(double min, double max){
+        return mapper.renterListToDtoList(repository.findAllByMaxPriceBetweenAndActive(min, max, true));
+    }
 
+    public void save(RenterDto renter) {
+        repository.save(mapper.dtoToRenter(renter));
+    }
+
+    public void deleteById(@Nonnull UUID id){
+        repository.deleteById(id);
+    }
 }

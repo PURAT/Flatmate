@@ -1,20 +1,29 @@
 package com.company.flatmate.service;
 
-import com.company.flatmate.entity.ApartmentPhoto;
+import com.company.flatmate.dto.ApartmentPhotoDto;
 import com.company.flatmate.repository.ApartmentPhotoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.company.flatmate.util.mapper.ApartmentPhotoMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nonnull;
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.UUID;
+
 @Service
+@AllArgsConstructor
+@Transactional
 public class ApartmentPhotoService {
 
-    private ApartmentPhotoRepository repository;
+    private final ApartmentPhotoRepository repository;
+    private final ApartmentPhotoMapper mapper;
 
-    public ApartmentPhotoService(ApartmentPhotoRepository repository) {
-        this.repository = repository;
+    public List<ApartmentPhotoDto> findAllByApartmentId(@Nonnull UUID id) {
+        return mapper.apartmentPhotoListToDtoList(repository.findAllByApartmentId(id));
     }
 
-    public void save(ApartmentPhoto photo) {
-        repository.save(photo);
+    public void save(ApartmentPhotoDto photo) {
+        repository.save(mapper.dtoToPhoto(photo));
     }
 }

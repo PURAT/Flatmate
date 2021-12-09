@@ -1,29 +1,55 @@
 package com.company.flatmate.controller;
 
-import com.company.flatmate.entity.ApartmentFeedback;
+import com.company.flatmate.dto.ApartmentFeedbackDto;
+import com.company.flatmate.security.payload.MessageResponse;
 import com.company.flatmate.service.ApartmentFeedbackService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.AllArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/apartment")
+@RequestMapping("/apartment/feedback")
 @SecurityRequirement(name = "flatmateapi")
+@AllArgsConstructor
 public class ApartmentFeedbackController {
 
-    private ApartmentFeedbackService service;
+    private final ApartmentFeedbackService service;
 
-    public ApartmentFeedbackController(ApartmentFeedbackService service) {
-        this.service = service;
+    @GetMapping(params = "apart_id")
+    public ResponseEntity<?> getApartmentFeedbacks(@RequestParam("apart_id") String id) {
+        try {
+            List<ApartmentFeedbackDto> list = service.findAllByApartmentId(UUID.fromString(id));
+            return ResponseEntity.ok(list);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Apartment ID is entered incorrectly!"));
+        }
     }
 
-    @PostMapping(value = "/feedback")
-    public HttpStatus addApartmentFeedback(@RequestBody ApartmentFeedback feedback) {
+//    @GetMapping(params = "author_id")
+//    public ResponseEntity<?> getApartmentFeedbacksByAuthor(@RequestParam("author_id") String id) {
+//        try {
+//            List<ApartmentFeedbackDto> list = service.findAllByAuthorId(UUID.fromString(id));
+//            return ResponseEntity.ok(list);
+//        } catch (IllegalArgumentException e) {
+//            return ResponseEntity
+//                    .badRequest()
+//                    .body(new MessageResponse("Apartment ID is entered incorrectly!"));
+//        } catch (EmptyResultDataAccessException e) {
+//            return ResponseEntity
+//                    .notFound().build();
+//        }
+//    }
+
+    @PostMapping
+    public ResponseEntity<?> addApartmentFeedback(@RequestBody ApartmentFeedbackDto feedback) {
         service.save(feedback);
-        return HttpStatus.OK;
+        return ResponseEntity.ok().build();
     }
 }

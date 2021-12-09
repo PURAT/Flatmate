@@ -27,7 +27,6 @@ public class AuthController {
         this.jwtProvider = jwtProvider;
     }
 
-    // добавить нормальную обработку ошибок
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody @Valid RegistrationRequest request) {
         try {
