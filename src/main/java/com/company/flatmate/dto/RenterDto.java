@@ -12,7 +12,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 public class RenterDto {
-    @JsonIgnore
+    @JsonProperty("id")
     private UUID id;
 
     @JsonProperty("max_price")

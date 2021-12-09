@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class LandlordDto {
 
-    @JsonIgnore
+    @JsonProperty("id")
     private UUID id;
 
     @JsonProperty("apartment_id")

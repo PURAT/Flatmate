@@ -14,7 +14,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 public class UserDto {
-    @JsonIgnore
+    @JsonProperty("id")
     private UUID id;
 
     @JsonProperty("login")
