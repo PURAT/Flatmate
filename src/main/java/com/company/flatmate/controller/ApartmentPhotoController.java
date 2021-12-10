@@ -23,12 +23,8 @@ public class ApartmentPhotoController {
 
     @GetMapping(params = "apart_id")
     public ResponseEntity<?> getApartmentPhotos(@RequestParam("apart_id") String id) {
-        try {
-            List<ApartmentPhotoDto> list = service.findAllByApartmentId(UUID.fromString(id));
-            return ResponseEntity.ok(list);
-        } catch (Exception e) {
-            throw new NoSuchDataException();
-        }
+        List<ApartmentPhotoDto> list = service.findAllByApartmentId(UUID.fromString(id));
+        return ResponseEntity.ok(list);
     }
 
     @PostMapping

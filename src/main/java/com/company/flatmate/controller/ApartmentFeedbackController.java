@@ -23,12 +23,8 @@ public class ApartmentFeedbackController {
 
     @GetMapping(params = "apart_id")
     public ResponseEntity<?> getApartmentFeedbacks(@RequestParam("apart_id") String id) {
-        try {
-            List<ApartmentFeedbackDto> list = service.findAllByApartmentId(UUID.fromString(id));
-            return ResponseEntity.ok(list);
-        } catch (Exception e) {
-            throw new NoSuchDataException();
-        }
+        List<ApartmentFeedbackDto> list = service.findAllByApartmentId(UUID.fromString(id));
+        return ResponseEntity.ok(list);
     }
 
 //    @GetMapping(params = "author_id")

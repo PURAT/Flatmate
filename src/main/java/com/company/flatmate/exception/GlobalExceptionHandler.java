@@ -14,4 +14,10 @@ public class GlobalExceptionHandler {
         MessageResponse mes = new MessageResponse(e.getMessage());
         return new ResponseEntity<>(mes, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler
+    public ResponseEntity<?> handlerException(Throwable e) {
+        MessageResponse mes = new MessageResponse(e.getMessage());
+        return new ResponseEntity<>(mes, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

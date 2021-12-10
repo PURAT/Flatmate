@@ -22,11 +22,7 @@ public class LandlordController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getLandlord(@PathVariable String id) {
-        try {
-            return ResponseEntity.ok(service.findById(UUID.fromString(id)));
-        } catch (Exception e) {
-            throw new NoSuchDataException();
-        }
+        return ResponseEntity.ok(service.findById(UUID.fromString(id)));
     }
 
     @PostMapping

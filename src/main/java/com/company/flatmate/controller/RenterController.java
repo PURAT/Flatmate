@@ -28,11 +28,7 @@ public class RenterController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getActiveApartments(@PathVariable String id) {
-        try {
-            return ResponseEntity.ok(service.findById(UUID.fromString(id)));
-        } catch (Exception e) {
-            throw new NoSuchDataException();
-        }
+        return ResponseEntity.ok(service.findById(UUID.fromString(id)));
     }
 
     @GetMapping(params = {"min", "max"})
@@ -49,11 +45,7 @@ public class RenterController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteApartment(@PathVariable String id) {
-        try {
-            service.deleteById(UUID.fromString(id));
-        } catch (Exception e) {
-            throw new NoSuchDataException();
-        }
+        service.deleteById(UUID.fromString(id));
         return ResponseEntity.ok().build();
     }
 }

@@ -23,20 +23,12 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable String id) {
-        try {
-            return ResponseEntity.ok(service.findById(UUID.fromString(id)));
-        } catch (Exception e) {
-            throw new NoSuchDataException();
-        }
+        return ResponseEntity.ok(service.findById(UUID.fromString(id)));
     }
 
     @GetMapping(params="login")
     public ResponseEntity<?> getUserByLogin(@RequestParam(value = "login") String login) {
-        try {
-            return ResponseEntity.ok(service.findByLogin(login));
-        } catch (Exception e) {
-            throw new NoSuchDataException();
-        }
+        return ResponseEntity.ok(service.findByLogin(login));
     }
 
     @PostMapping
