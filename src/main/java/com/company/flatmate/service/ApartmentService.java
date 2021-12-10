@@ -1,6 +1,8 @@
 package com.company.flatmate.service;
 
 import com.company.flatmate.dto.ApartmentDto;
+import com.company.flatmate.entity.Apartment;
+import com.company.flatmate.exception.NoSuchDataException;
 import com.company.flatmate.repository.ApartmentRepository;
 import com.company.flatmate.util.mapper.ApartmentMapper;
 import lombok.AllArgsConstructor;
@@ -10,6 +12,7 @@ import javax.annotation.Nonnull;
 import javax.transaction.Transactional;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -22,7 +25,11 @@ public class ApartmentService {
 
 
     public ApartmentDto findById(@Nonnull UUID id) {
-        return mapper.apartmentToDto(repository.findById(id).get());
+        Optional<Apartment> apart = repository.findById(id);
+        if (apart.isEmpty()) {
+            throw new NoSuchDataException();
+        }
+        return mapper.apartmentToDto(apart.get());
     }
 
     public List<ApartmentDto> findAll() {

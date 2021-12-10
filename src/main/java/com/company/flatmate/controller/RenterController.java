@@ -27,7 +27,7 @@ public class RenterController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getActiveApartments(@PathVariable String id) {
+    public ResponseEntity<?> getRenter(@PathVariable String id) {
         return ResponseEntity.ok(service.findById(UUID.fromString(id)));
     }
 

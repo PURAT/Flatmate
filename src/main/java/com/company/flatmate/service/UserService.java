@@ -3,6 +3,7 @@ package com.company.flatmate.service;
 import com.company.flatmate.dto.UserDto;
 import com.company.flatmate.entity.Role;
 import com.company.flatmate.entity.User;
+import com.company.flatmate.exception.NoSuchDataException;
 import com.company.flatmate.repository.RoleRepository;
 import com.company.flatmate.repository.UserRepository;
 import com.company.flatmate.util.mapper.UserMapper;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -51,10 +53,14 @@ public class UserService {
                 return user;
             }
         }
-        return null;
+        throw new NoSuchDataException();
     }
 
     public UserDto findById(@Nonnull UUID id){
-        return mapper.userToDto(userRepository.findById(id).get());
+        Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()) {
+            throw new NoSuchDataException();
+        }
+        return mapper.userToDto(user.get());
     }
 }
