@@ -23,12 +23,6 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler
-    public ResponseEntity<?> handleException(JsonParseException e) {
-        MessageResponse mes = new MessageResponse(e.getMessage());
-        return new ResponseEntity<>(mes, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler
     public ResponseEntity<?> handlerException(Throwable e) {
         MessageResponse mes = new MessageResponse(e.getMessage());
         return new ResponseEntity<>(mes, HttpStatus.INTERNAL_SERVER_ERROR);
