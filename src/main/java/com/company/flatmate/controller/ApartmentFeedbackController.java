@@ -21,8 +21,8 @@ public class ApartmentFeedbackController {
 
     private final ApartmentFeedbackService service;
 
-    @GetMapping(params = "apart_id")
-    public ResponseEntity<?> getApartmentFeedbacks(@RequestParam("apart_id") String id) {
+    @GetMapping(params = "apartId")
+    public ResponseEntity<?> getApartmentFeedbacks(@RequestParam("apartId") String id) {
         List<ApartmentFeedbackDto> list = service.findAllByApartmentId(UUID.fromString(id));
         return ResponseEntity.ok(list);
     }
