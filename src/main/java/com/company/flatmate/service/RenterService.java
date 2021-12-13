@@ -1,6 +1,8 @@
 package com.company.flatmate.service;
 
 import com.company.flatmate.dto.RenterDto;
+import com.company.flatmate.entity.Renter;
+import com.company.flatmate.exception.NoSuchDataException;
 import com.company.flatmate.repository.RenterRepository;
 import com.company.flatmate.util.mapper.RenterMapper;
 import lombok.AllArgsConstructor;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -27,7 +30,11 @@ public class RenterService {
     }
 
     public RenterDto findById(@Nonnull UUID id){
-        return mapper.renterToDto(repository.findById(id).get());
+        Optional<Renter> renter = repository.findById(id);
+        if (renter.isEmpty()){
+            throw new NoSuchDataException();
+        }
+        return mapper.renterToDto(renter.get());
     }
 
     public List<RenterDto> findAllByMaxPriceBetween(double min, double max){

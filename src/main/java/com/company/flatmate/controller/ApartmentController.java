@@ -25,11 +25,7 @@ public class ApartmentController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getActiveApartments(@PathVariable String id) {
-        try {
             return ResponseEntity.ok(service.findById(UUID.fromString(id)));
-        } catch (Exception e) {
-            throw new NoSuchDataException();
-        }
     }
 
     @GetMapping
@@ -71,11 +67,7 @@ public class ApartmentController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteApartment(@PathVariable String id) {
-        try {
-            service.deleteById(UUID.fromString(id));
-        } catch (Exception e) {
-            throw new NoSuchDataException();
-        }
+        service.deleteById(UUID.fromString(id));
         return ResponseEntity.ok().build();
     }
 

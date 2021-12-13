@@ -30,17 +30,13 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody @Valid RegistrationRequest request) {
-        try {
-            User user = new User()
+        User user = new User()
                     .setFirstname(request.getFirstname())
                     .setLogin(request.getLogin())
                     .setPassword(request.getPassword())
                     .setCity(request.getCity())
                     .setEmail(request.getEmail());
-            userService.saveUser(user);
-        } catch (Exception e) {
-            throw new NoSuchDataException();
-        }
+        userService.saveUser(user);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
