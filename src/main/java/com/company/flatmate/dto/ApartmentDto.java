@@ -2,7 +2,6 @@ package com.company.flatmate.dto;
 
 import com.company.flatmate.entity.ApartmentFeedback;
 import com.company.flatmate.entity.ApartmentPhoto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.geo.Point;
@@ -30,7 +29,6 @@ public class ApartmentDto {
 
     private Double price;
 
-    @JsonIgnore
     private OffsetDateTime publicationDate = OffsetDateTime.now();
 
     private boolean active;

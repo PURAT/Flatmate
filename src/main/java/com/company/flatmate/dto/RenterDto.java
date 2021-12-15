@@ -1,6 +1,5 @@
 package com.company.flatmate.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +13,6 @@ public class RenterDto {
 
     private double maxPrice;
 
-    @JsonIgnore
     private OffsetDateTime publicationDate = OffsetDateTime.now();
 
     private UUID userId;
