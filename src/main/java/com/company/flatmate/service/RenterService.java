@@ -60,7 +60,7 @@ public class RenterService {
         repository.deleteById(id);
     }
 
-    private void setLogin(RenterDto dto) {
+    void setLogin(RenterDto dto) {
         dto.setLogin(userService.findById(dto.getUserId()).getLogin());
     }
 }

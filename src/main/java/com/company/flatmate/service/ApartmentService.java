@@ -1,6 +1,7 @@
 package com.company.flatmate.service;
 
 import com.company.flatmate.dto.ApartmentDto;
+import com.company.flatmate.dto.RenterDto;
 import com.company.flatmate.entity.Apartment;
 import com.company.flatmate.exception.NoSuchDataException;
 import com.company.flatmate.repository.ApartmentRepository;
@@ -21,6 +22,7 @@ import java.util.UUID;
 public class ApartmentService {
 
     private final ApartmentRepository repository;
+    private final RenterService service;
     private final ApartmentMapper mapper;
 
 
@@ -29,27 +31,61 @@ public class ApartmentService {
         if (apart.isEmpty()) {
             throw new NoSuchDataException();
         }
-        return mapper.apartmentToDto(apart.get());
+        ApartmentDto dto = mapper.apartmentToDto(apart.get());
+        for (RenterDto renter : dto.getRenters()) {
+            service.setLogin(renter);
+        }
+        return dto;
     }
 
     public List<ApartmentDto> findAll() {
-        return mapper.apartmentListToDtoList(repository.findAll());
+        List<ApartmentDto> list = mapper.apartmentListToDtoList(repository.findAll());
+        for (ApartmentDto dto : list) {
+            for (RenterDto renter : dto.getRenters()) {
+                service.setLogin(renter);
+            }
+        }
+        return list;
     }
 
     public List<ApartmentDto> findAllByActive(boolean active) {
-        return mapper.apartmentListToDtoList(repository.findAllByActive(active));
+        List<ApartmentDto> list = mapper.apartmentListToDtoList(repository.findAllByActive(active));
+        for (ApartmentDto dto : list) {
+            for (RenterDto renter : dto.getRenters()) {
+                service.setLogin(renter);
+            }
+        }
+        return list;
     }
 
     public List<ApartmentDto> findAllByPriceBetween(double min, double max) {
-        return mapper.apartmentListToDtoList(repository.findAllByPriceBetweenAndActive(min, max, true));
+        List<ApartmentDto> list = mapper.apartmentListToDtoList(repository.findAllByPriceBetweenAndActive(min, max, true));
+        for (ApartmentDto dto : list) {
+            for (RenterDto renter : dto.getRenters()) {
+                service.setLogin(renter);
+            }
+        }
+        return list;
     }
 
     public List<ApartmentDto> findAllByLodgerCount(int count) {
-        return mapper.apartmentListToDtoList(repository.findAllByLodgerCountAndActive(count, true));
+        List<ApartmentDto> list = mapper.apartmentListToDtoList(repository.findAllByLodgerCountAndActive(count, true));
+        for (ApartmentDto dto : list) {
+            for (RenterDto renter : dto.getRenters()) {
+                service.setLogin(renter);
+            }
+        }
+        return list;
     }
 
     public List<ApartmentDto> findAllByRoomsCount(int count) {
-        return mapper.apartmentListToDtoList(repository.findAllByRoomsCountAndActive(count, true));
+        List<ApartmentDto> list = mapper.apartmentListToDtoList(repository.findAllByRoomsCountAndActive(count, true));
+        for (ApartmentDto dto : list) {
+            for (RenterDto renter : dto.getRenters()) {
+                service.setLogin(renter);
+            }
+        }
+        return list;
     }
 
     public UUID save(ApartmentDto apartment) {

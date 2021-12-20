@@ -1,8 +1,5 @@
 package com.company.flatmate.dto;
 
-import com.company.flatmate.entity.ApartmentFeedback;
-import com.company.flatmate.entity.ApartmentPhoto;
-import com.company.flatmate.entity.Renter;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.geo.Point;
@@ -24,11 +21,11 @@ public class ApartmentDto {
 
     private Point location;
 
-    private List<ApartmentPhoto> photos;
+    private List<ApartmentPhotoDto> photos;
 
-    private List<ApartmentFeedback> feedbacks;
+    private List<ApartmentFeedbackDto> feedbacks;
 
-    private List<Renter> renters;
+    private List<RenterDto> renters;
 
     private Double price;
 
