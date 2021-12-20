@@ -9,7 +9,10 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 public class RenterDto {
+
     private UUID id;
+
+    private String login;
 
     private double maxPrice;
 

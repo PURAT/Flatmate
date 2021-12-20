@@ -17,35 +17,50 @@ import java.util.UUID;
 @AllArgsConstructor
 public class RenterService {
 
-    private RenterRepository repository;
+    private final RenterRepository repository;
+    private final UserService userService;
     private final RenterMapper mapper;
 
 
-    public List<RenterDto> getRenters(){
+    public List<RenterDto> getRenters() {
         return mapper.renterListToDtoList(repository.findAll());
     }
 
-    public List<RenterDto> findAllByActive(boolean active){
-        return mapper.renterListToDtoList(repository.findAllByActive(active));
+    public List<RenterDto> findAllByActive(boolean active) {
+        List<RenterDto> list = mapper.renterListToDtoList(repository.findAllByActive(active));
+        for (RenterDto dto : list) {
+            setLogin(dto);
+        }
+        return list;
     }
 
-    public RenterDto findById(@Nonnull UUID id){
+    public RenterDto findById(@Nonnull UUID id) {
         Optional<Renter> renter = repository.findById(id);
-        if (renter.isEmpty()){
+        if (renter.isEmpty()) {
             throw new NoSuchDataException();
         }
-        return mapper.renterToDto(renter.get());
+        RenterDto dto = mapper.renterToDto(renter.get());
+        setLogin(dto);
+        return dto;
     }
 
-    public List<RenterDto> findAllByMaxPriceBetween(double min, double max){
-        return mapper.renterListToDtoList(repository.findAllByMaxPriceBetweenAndActive(min, max, true));
+    public List<RenterDto> findAllByMaxPriceBetween(double min, double max) {
+        List<RenterDto> list = mapper.renterListToDtoList(repository.findAllByMaxPriceBetweenAndActive(min, max, true));
+        for (RenterDto dto : list) {
+            setLogin(dto);
+        }
+        return list;
     }
 
     public void save(RenterDto renter) {
         repository.save(mapper.dtoToRenter(renter));
     }
 
-    public void deleteById(@Nonnull UUID id){
+    public void deleteById(@Nonnull UUID id) {
         repository.deleteById(id);
+    }
+
+    private void setLogin(RenterDto dto) {
+        dto.setLogin(userService.findById(dto.getUserId()).getLogin());
     }
 }

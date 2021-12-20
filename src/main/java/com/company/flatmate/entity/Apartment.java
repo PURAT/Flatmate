@@ -40,9 +40,6 @@ public class Apartment {
     @JoinColumn(name = "apartment_id", foreignKey = @ForeignKey(name = "apartment_id"))
     private List<ApartmentPhoto> photos;
 
-//    @OneToMany(targetEntity = ApartmentPhoto.class,
-//            mappedBy = "apartment", cascade = CascadeType.ALL)
-//    private List<ApartmentPhoto> photos;
 
     @OneToMany(targetEntity = ApartmentFeedback.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "apartment_id", foreignKey = @ForeignKey(name = "apartment_id"))

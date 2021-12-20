@@ -18,18 +18,18 @@ public class Renter {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
-    @Column(name="max_price")
+    @Column(name = "max_price")
     private double maxPrice;
 
-    @Column(name="publication_date", columnDefinition = "timestamp with time zone")
+    @Column(name = "publication_date", columnDefinition = "timestamp with time zone")
     private OffsetDateTime publicationDate;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id", nullable = false)
+//    @OneToOne(targetEntity = User.class)
+//    @JoinColumn(name = "renter_id", foreignKey = @ForeignKey(name = "renter_id"))
 //    private User user;
 
     @Column(name = "user_id")
-    private UUID userId; //todo ????
+    private UUID userId;
 
     @Column(name = "is_active")
     private boolean active;

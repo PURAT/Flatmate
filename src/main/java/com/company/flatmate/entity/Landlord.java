@@ -24,8 +24,8 @@ public class Landlord {
     @Column(name = "apartment_id", nullable = false)
     private UUID apartmentId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id", nullable = false)
+//    @OneToOne(targetEntity = User.class)
+//    @JoinColumn(name = "landlord_id", foreignKey = @ForeignKey(name = "landlord_id"))
 //    private User user;
 
     @Column(name = "user_id", nullable = false)

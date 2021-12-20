@@ -23,12 +23,8 @@ public class RenterFeedback {
     @Column(name = "feedback")
     private String feedback;
 
-//    @ManyToOne
-//    @JoinColumn(name = "renter_id", nullable = false)
-//    private Renter renterId;
-
     @Column(name = "renter_id")
-    private UUID renterId; //TODO ???????
+    private UUID renterId;
 
 //    @ManyToOne
 //    @JoinColumn(name = "author_id", nullable = false)

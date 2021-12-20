@@ -16,7 +16,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class LandlordService {
 
-    private LandlordRepository repository;
+    private final LandlordRepository repository;
+    private final UserService userService;
     private final LandlordMapper mapper;
 
 
@@ -24,11 +25,17 @@ public class LandlordService {
         repository.save(mapper.dtoToLandlord(landlord));
     }
 
-    public LandlordDto findById(@Nonnull UUID id){
+    public LandlordDto findById(@Nonnull UUID id) {
         Optional<Landlord> landlord = repository.findById(id);
         if (landlord.isEmpty()) {
             throw new NoSuchDataException();
         }
-        return mapper.landlordToDto(landlord.get());
+        LandlordDto dto = mapper.landlordToDto(landlord.get());
+        setLogin(dto);
+        return dto;
+    }
+
+    private void setLogin(LandlordDto dto) {
+        dto.setLogin(userService.findById(dto.getUserId()).getLogin());
     }
 }
