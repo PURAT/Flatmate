@@ -22,8 +22,8 @@ public class RenterFeedbackController {
 
     private final RenterFeedbackService service;
 
-    @GetMapping(params = "renter_id")
-    public ResponseEntity<?> getRenterFeedbacks(@RequestParam("renter_id") String id) {
+    @GetMapping(params = "renterId")
+    public ResponseEntity<?> getRenterFeedbacks(@RequestParam("renterId") String id) {
         List<RenterFeedbackDto> list = service.findAllByRenterId(UUID.fromString(id));
         return ResponseEntity.ok(list);
     }
