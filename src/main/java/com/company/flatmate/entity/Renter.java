@@ -33,4 +33,7 @@ public class Renter {
 
     @Column(name = "is_active")
     private boolean active;
+
+    @Column(name = "apartment_id")
+    private UUID apartmentId;
 }

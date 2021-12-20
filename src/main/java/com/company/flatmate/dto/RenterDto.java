@@ -16,6 +16,8 @@ public class RenterDto {
 
     private double maxPrice;
 
+    private UUID apartmentId;
+
     private OffsetDateTime publicationDate = OffsetDateTime.now();
 
     private UUID userId;

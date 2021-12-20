@@ -45,6 +45,10 @@ public class Apartment {
     @JoinColumn(name = "apartment_id", foreignKey = @ForeignKey(name = "apartment_id"))
     private List<ApartmentFeedback> feedbacks;
 
+    @OneToMany(targetEntity = Renter.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "apartment_id", foreignKey = @ForeignKey(name = "apartment_id"))
+    private List<Renter> renters;
+
 //    @OneToMany(targetEntity = ApartmentFeedback.class,
 //            mappedBy = "apartment", cascade = CascadeType.ALL)
 //    private List<ApartmentFeedback> feedbacks;

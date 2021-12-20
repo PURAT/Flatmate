@@ -32,17 +32,23 @@ create table if not exists users (
                 on delete cascade
     );
 
-create table if not exists renter (
-        renter_id uuid not null,
-        max_price int4,
-        publication_date timestamp with time zone,
-        user_id uuid not null,
-        constraint renter_pkey primary key (renter_id),
-        constraint fk_user
-            foreign key (user_id)
-                references users(user_id)
-                on delete cascade
-    );
+create table if not exists renter(
+                                     renter_id        uuid not null,
+                                     max_price        int4,
+                                     publication_date timestamp with time zone,
+                                     user_id          uuid not null,
+                                     apartment_id     uuid,
+                                     constraint renter_pkey primary key (renter_id),
+                                     constraint fk_aparment
+                                         foreign key (apartment_id)
+                                             references apartment (apartment_id)
+                                             on delete no action,
+                                     constraint fk_user
+                                         foreign key (user_id)
+                                             references users (user_id)
+                                             on delete cascade
+
+);
 
 create table if not exists landlord (
         landlord_id uuid not null,
