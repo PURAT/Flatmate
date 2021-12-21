@@ -11,6 +11,8 @@ public class LandlordDto {
 
     private UUID id;
 
+    private String login;
+
     private UUID apartmentId;
 
     private UUID userId;
