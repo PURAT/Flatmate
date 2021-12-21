@@ -10,13 +10,13 @@ create table if not exists apartment (
         constraint apartment_pkey primary key (apartment_id)
     );
 
-create table if not exists roles (
+create table if not exists role (
         role_id  serial not null,
         role varchar(20),
-        constraint roles_pkey primary key (role_id)
+        constraint role_pkey primary key (role_id)
     );
 
-create table if not exists users (
+create table if not exists "user" (
         user_id uuid not null,
         city varchar(255),
         email varchar(255),
@@ -25,10 +25,10 @@ create table if not exists users (
         password varchar(255),
         photo bytea,
         role_id int4,
-        constraint users_pkey primary key (user_id),
-        constraint fk_roles
+        constraint user_pkey primary key (user_id),
+        constraint fk_role
             foreign key (role_id)
-                references roles(role_id)
+                references role(role_id)
                 on delete cascade
     );
 
@@ -45,7 +45,7 @@ create table if not exists renter(
                                              on delete no action,
                                      constraint fk_user
                                          foreign key (user_id)
-                                             references users (user_id)
+                                             references "user"(user_id)
                                              on delete cascade
 
 );
@@ -61,7 +61,7 @@ create table if not exists landlord (
                 on delete cascade,
         constraint fk_user
             foreign key (user_id)
-                references users(user_id)
+                references "user"(user_id)
                 on delete cascade
     );
 
