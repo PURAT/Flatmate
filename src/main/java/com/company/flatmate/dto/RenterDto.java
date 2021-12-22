@@ -1,8 +1,5 @@
 package com.company.flatmate.dto;
 
-import com.company.flatmate.entity.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,15 +9,18 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 public class RenterDto {
-    @JsonIgnore
-    private UUID renterId;
 
-    @JsonProperty("max_price")
-    private int maxPrice;
+    private UUID id;
 
-    @JsonIgnore
+    private String login;
+
+    private double maxPrice;
+
+    private UUID apartmentId;
+
     private OffsetDateTime publicationDate = OffsetDateTime.now();
 
-    @JsonProperty("user")
-    private User user;
+    private UUID userId;
+
+    private boolean active;
 }

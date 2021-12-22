@@ -1,36 +1,34 @@
 package com.company.flatmate.controller;
 
-import com.company.flatmate.entity.Landlord;
+import com.company.flatmate.dto.LandlordDto;
+import com.company.flatmate.exception.NoSuchDataException;
+import com.company.flatmate.security.payload.MessageResponse;
 import com.company.flatmate.service.LandlordService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @RestController
 @SecurityRequirement(name = "flatmateapi")
+@RequestMapping("/landlord")
+@AllArgsConstructor
 public class LandlordController {
 
-    private final LandlordService landlordService;
+    private final LandlordService service;
 
-    public LandlordController(LandlordService landlordService) {
-        this.landlordService = landlordService;
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getLandlord(@PathVariable String id) {
+        return ResponseEntity.ok(service.findById(UUID.fromString(id)));
     }
 
-    @PostMapping(
-            value = "/landlord", consumes = "application/json", produces = "application/json")
-    public Landlord addUser(@RequestBody Landlord landlord) throws Exception {
-        landlordService.save(landlord);
-        return landlord;
+    @PostMapping
+    public ResponseEntity<?> addLandlord(@RequestBody LandlordDto landlord) {
+        service.save(landlord);
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping(
-            value = "/landlord")
-    public List<Landlord> getLandlords() throws Exception {
-        return landlordService.getLandlords();
-    }
 }

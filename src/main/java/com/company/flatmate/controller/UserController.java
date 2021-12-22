@@ -1,33 +1,40 @@
 package com.company.flatmate.controller;
 
-import com.company.flatmate.entity.User;
+import com.company.flatmate.dto.UserDto;
+import com.company.flatmate.exception.NoSuchDataException;
+import com.company.flatmate.security.payload.MessageResponse;
 import com.company.flatmate.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
+import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @RestController
+@RequestMapping("/user")
 @SecurityRequirement(name = "flatmateapi")
+@AllArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final UserService service;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable String id) {
+        return ResponseEntity.ok(service.findById(UUID.fromString(id)));
     }
 
-    @PostMapping(
-            value = "/user", consumes = "application/json", produces = "application/json")
-    public User addUser(@RequestBody User user) throws Exception {
-        userService.save(user);
-        return user;
+    @GetMapping(params="login")
+    public ResponseEntity<?> getUserByLogin(@RequestParam(value = "login") String login) {
+        return ResponseEntity.ok(service.findByLogin(login));
     }
 
-    @GetMapping(
-            value = "/user")
-    public List<User> getUsers() throws Exception {
-        return userService.getUsers();
+    @PostMapping
+    public ResponseEntity<?> addUser(@RequestBody UserDto user) {
+        service.save(user);
+        return ResponseEntity.ok().build();
     }
+
 }

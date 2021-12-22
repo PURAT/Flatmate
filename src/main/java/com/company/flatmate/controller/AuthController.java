@@ -1,6 +1,7 @@
 package com.company.flatmate.controller;
 
 import com.company.flatmate.entity.User;
+import com.company.flatmate.exception.NoSuchDataException;
 import com.company.flatmate.security.jwt.JwtProvider;
 import com.company.flatmate.security.payload.AuthRequest;
 import com.company.flatmate.security.payload.AuthResponse;
@@ -27,22 +28,15 @@ public class AuthController {
         this.jwtProvider = jwtProvider;
     }
 
-    // добавить нормальную обработку ошибок
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody @Valid RegistrationRequest request) {
-        try {
-            User user = new User()
+        User user = new User()
                     .setFirstname(request.getFirstname())
                     .setLogin(request.getLogin())
                     .setPassword(request.getPassword())
                     .setCity(request.getCity())
                     .setEmail(request.getEmail());
-            userService.saveUser(user);
-        } catch (Exception e) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: " + e.getMessage()));
-        }
+        userService.saveUser(user);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 

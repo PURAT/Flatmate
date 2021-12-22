@@ -31,10 +31,8 @@ public class ApartmentFeedback {
     @Column(name = "apartment_id")
     private UUID apartmentId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "apartment_id", nullable = false)
-//    private Apartment apartment;
-
+    // todo: пока не привязывается к автору, надо сделать привязку со стороны автора
+    // todo: (смотреть привязку apartmentId выше к apartment)
     @Column(name = "author_id")
     private UUID authorId;
 

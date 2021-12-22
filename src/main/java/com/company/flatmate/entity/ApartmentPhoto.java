@@ -27,10 +27,6 @@ public class ApartmentPhoto {
     @Column(name = "apartment_id")
     private UUID apartmentId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "apartment_id", nullable = false)
-//    private Apartment apartment;
-
     @Lob
     @Type(type="org.hibernate.type.BinaryType")
     @Column(name = "photo", columnDefinition = "bytea")

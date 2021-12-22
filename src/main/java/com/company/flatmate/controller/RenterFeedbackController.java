@@ -1,36 +1,37 @@
 package com.company.flatmate.controller;
 
+import com.company.flatmate.dto.ApartmentFeedbackDto;
+import com.company.flatmate.dto.RenterFeedbackDto;
 import com.company.flatmate.entity.RenterFeedback;
+import com.company.flatmate.exception.NoSuchDataException;
+import com.company.flatmate.security.payload.MessageResponse;
 import com.company.flatmate.service.RenterFeedbackService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @SecurityRequirement(name = "flatmateapi")
+@RequestMapping("/renter/feedback")
+@AllArgsConstructor
 public class RenterFeedbackController {
 
-    private final RenterFeedbackService renterFeedbackService;
+    private final RenterFeedbackService service;
 
-    public RenterFeedbackController(RenterFeedbackService renterFeedbackService) {
-        this.renterFeedbackService = renterFeedbackService;
+    @GetMapping(params = "renterId")
+    public ResponseEntity<?> getRenterFeedbacks(@RequestParam("renterId") String id) {
+        List<RenterFeedbackDto> list = service.findAllByRenterId(UUID.fromString(id));
+        return ResponseEntity.ok(list);
     }
 
-    @PostMapping(
-            value = "/renter/feedback", consumes = "application/json", produces = "application/json")
-    public RenterFeedback addRenterFeedback(@RequestBody RenterFeedback renterFeedback) throws Exception {
-        renterFeedbackService.save(renterFeedback);
-        return renterFeedback;
+    @PostMapping
+    public ResponseEntity<?> addRenterFeedback(@RequestBody RenterFeedbackDto renterFeedback) {
+        service.save(renterFeedback);
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping(
-            value = "/renter/feedback")
-    public List<RenterFeedback> getRenterFeedbacks() throws Exception {
-        return renterFeedbackService.getRenterFeedbacks();
-    }
 }

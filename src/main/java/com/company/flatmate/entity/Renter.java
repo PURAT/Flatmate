@@ -16,15 +16,24 @@ public class Renter {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID renterId;
+    private UUID id;
 
-    @Column(name="max_price")
-    private int maxPrice;
+    @Column(name = "max_price")
+    private double maxPrice;
 
-    @Column(name="publication_date", columnDefinition = "timestamp with time zone")
+    @Column(name = "publication_date", columnDefinition = "timestamp with time zone")
     private OffsetDateTime publicationDate;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+//    @OneToOne(targetEntity = User.class)
+//    @JoinColumn(name = "renter_id", foreignKey = @ForeignKey(name = "renter_id"))
+//    private User user;
+
+    @Column(name = "user_id")
+    private UUID userId;
+
+    @Column(name = "is_active")
+    private boolean active;
+
+    @Column(name = "apartment_id")
+    private UUID apartmentId;
 }

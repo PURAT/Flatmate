@@ -12,14 +12,14 @@ import java.util.UUID;
 @Data
 @Accessors(chain = true)
 @Entity
-@Table(name = "users")
+@Table(name = "\"user\"")
 public class User {
 
     @Column(name = "user_id")
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID userId;
+    private UUID id;
 
     @Column(name = "login", nullable = false)
     private String login;
@@ -40,9 +40,15 @@ public class User {
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "user_id"))
     private List<Renter> renters;
 
+//    @Column(name = "renter_id")
+//    private UUID renterId;
+
     @OneToMany(targetEntity = Landlord.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "user_id"))
     private List<Landlord> landlords;
+
+//    @Column(name = "landlord_id")
+//    private UUID landlordId;
 
     @Lob
     @Type(type = "org.hibernate.type.BinaryType")
